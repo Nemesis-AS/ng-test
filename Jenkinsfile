@@ -26,7 +26,7 @@ pipeline {
         stage('Test') {
             steps {
                 withSonarQubeEnv('SonarQube-local') {
-                    sh 'mvn clean package sonar:sonar'
+                    sh 'mvn clean package sonar:sonar -Dsonar.projectKey="ng-test" -Dsonar.projectName="NG Test"'
                 }
             }
         }
