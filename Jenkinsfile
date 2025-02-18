@@ -1,8 +1,8 @@
 pipeline {
     agent any
-     tools {
-        maven 'M3'
-    }
+    //  tools {
+    //     maven 'M3'
+    // }
 
     stages {
         stage('Clone') {
@@ -25,9 +25,14 @@ pipeline {
         }
         stage('Test') {
             steps {
-                withSonarQubeEnv('SonarQube-local') {
-                    sh 'mvn clean package sonar:sonar -Dsonar.projectKey="ng-test" -Dsonar.projectName="NG Test"'
-                }
+              def scannerHome = tool 'SonarQube Scanner';
+              withSonarQubeEnv('SonarQube-local') { // If you have configured more than one global server connection, you can specify its name
+                  sh "${scannerHome}/bin/sonar-scanner"
+              }
+                // withSonarQubeEnv('SonarQube-local') {
+                //     // sh 'mvn clean package sonar:sonar -Dsonar.projectKey="ng-test" -Dsonar.projectName="NG Test"'
+                  
+                // }
             }
         }
         stage("Quality Gate") {
