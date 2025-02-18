@@ -5,14 +5,15 @@ pipeline {
     // }
 
     stages {
-        stage('Clone') {
-            steps {
-                git 'https://github.com/Nemesis-AS/ng-test.git'
-            }
-        }
+        // stage('Clone') {
+        //     steps {
+        //         git 'https://github.com/Nemesis-AS/ng-test.git'
+        //     }
+        // }
         stage('Build') {
             steps {
-                git 'https://github.com/Nemesis-AS/ng-test.git'
+                // git 'https://github.com/Nemesis-AS/ng-test.git'
+                sh "whoami"
                 sh "npm install"
                 sh "ng build --configuration=production"
             }
