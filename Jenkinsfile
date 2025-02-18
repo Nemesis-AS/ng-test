@@ -24,11 +24,11 @@ pipeline {
             // }
         }
         stage('Test') {
+            def scannerHome = tool 'SonarQube Scanner';
             steps {
-              def scannerHome = tool 'SonarQube Scanner';
-              withSonarQubeEnv('SonarQube-local') { // If you have configured more than one global server connection, you can specify its name
-                  sh "${scannerHome}/bin/sonar-scanner"
-              }
+                withSonarQubeEnv('SonarQube-local') { // If you have configured more than one global server connection, you can specify its name
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
                 // withSonarQubeEnv('SonarQube-local') {
                 //     // sh 'mvn clean package sonar:sonar -Dsonar.projectKey="ng-test" -Dsonar.projectName="NG Test"'
                   
