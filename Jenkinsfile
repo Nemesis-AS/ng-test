@@ -11,7 +11,7 @@ pipeline {
             steps {
                 git 'https://github.com/Nemesis-AS/ng-test.git'
                 sh "npm install"
-                sh "ng build --environment=production"
+                sh "ng build --configuration=production"
             }
 
             // post {
