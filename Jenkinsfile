@@ -1,17 +1,21 @@
 pipeline {
     agent any
+    //  tools {
+    //     maven 'M3'
+    // }
 
     stages {
-        stage('Clone') {
-            steps {
-                git 'https://github.com/Nemesis-AS/ng-test.git'
-            }
-        }
+        // stage('Clone') {
+        //     steps {
+        //         git 'https://github.com/Nemesis-AS/ng-test.git'
+        //     }
+        // }
         stage('Build') {
             steps {
-                git 'https://github.com/Nemesis-AS/ng-test.git'
+                // git 'https://github.com/Nemesis-AS/ng-test.git'
+                sh "whoami"
                 sh "npm install"
-                sh "ng build --environment=production"
+                sh "ng build --configuration=production"
             }
 
             // post {
@@ -22,9 +26,16 @@ pipeline {
         }
         stage('Test') {
             steps {
-                withSonarQubeEnv('My SonarQube Server') {
-                    sh 'mvn clean package sonar:sonar'
+                script {
+                    def scannerHome = tool 'SonarQube Scanner';
+                    withSonarQubeEnv('SonarQube-local') { // If you have configured more than one global server connection, you can specify its name
+                        sh "${scannerHome}/bin/sonar-scanner"
+                    }
                 }
+                // withSonarQubeEnv('SonarQube-local') {
+                //     // sh 'mvn clean package sonar:sonar -Dsonar.projectKey="ng-test" -Dsonar.projectName="NG Test"'
+                  
+                // }
             }
         }
         stage("Quality Gate") {

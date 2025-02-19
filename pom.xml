@@ -1,0 +1,4 @@
+<properties>
+    <sonar.projectKey>ng-test</sonar.projectKey>
+    <sonar.projectName>NG Test</sonar.projectName>
+</properties>
